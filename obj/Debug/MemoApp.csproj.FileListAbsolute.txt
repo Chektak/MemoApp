@@ -1,0 +1,13 @@
+C:\Users\user\source\repos\MemoApp\MemoApp\bin\Debug\MemoApp.exe.config
+C:\Users\user\source\repos\MemoApp\MemoApp\bin\Debug\MemoApp.exe
+C:\Users\user\source\repos\MemoApp\MemoApp\bin\Debug\MemoApp.pdb
+C:\Users\user\source\repos\MemoApp\MemoApp\obj\Debug\MemoApp.csprojAssemblyReference.cache
+C:\Users\user\source\repos\MemoApp\MemoApp\obj\Debug\MemoApp.Form1.resources
+C:\Users\user\source\repos\MemoApp\MemoApp\obj\Debug\MemoApp.Properties.Resources.resources
+C:\Users\user\source\repos\MemoApp\MemoApp\obj\Debug\MemoApp.csproj.GenerateResource.cache
+C:\Users\user\source\repos\MemoApp\MemoApp\obj\Debug\MemoApp.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\MemoApp\MemoApp\obj\Debug\MemoApp.exe
+C:\Users\user\source\repos\MemoApp\MemoApp\obj\Debug\MemoApp.pdb
+C:\Users\user\source\repos\MemoApp\MemoApp\obj\Debug\MemoApp.MemoSettingForm.resources
+C:\Users\user\source\repos\MemoApp\MemoApp\obj\Debug\MemoApp.UseAppTipForm.resources
+C:\Users\user\source\repos\MemoApp\MemoApp\obj\Debug\MemoApp.InputBoxOuterMonthDate.resources
