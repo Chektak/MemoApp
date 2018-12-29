@@ -310,35 +310,46 @@ namespace MemoApp
 
         void UpdateDictionary()
         {
-            inputBoxForm.ShowDialog();
             try
             {
-                
+                int value;
+                int[] outerMonthBox = new int[12];
                 if (baseValueDate.ContainsKey(DateTimePicker.Value.Year - 1) != true)
                 {
-                    int value;
-                    int[] addIntBox=new int[12];
+                    inputBoxForm.ShowDialog();//이전년도의 outerMonth를 InputOuterMonth 변수로 받는다.
                     for (int i = 0; i < 12; i++)
                     {
-
-                        for (value = 7; value - inMonthDate[i] + InputOuterMonth >= 0; value += 7)//이전년도의 outerMonthDate[12]
+                        if (i == 0)
+                        {
+                            for (value = 7; 7 - InputOuterMonth + inMonthDate[i] > value; value += 7)//이전년도의 outerMonthDate[12]
+                            { }
+                            outerMonthBox[i] = value - (7 - InputOuterMonth + inMonthDate[i]);
+                            continue;
+                        }
+                        for (value = 7; 7 - outerMonthBox[i-1] + inMonthDate[i] > value; value += 7)//이전년도의 outerMonthDate[12]
                         { }
-                        addIntBox[i] = value - inMonthDate[i] + InputOuterMonth;
+                        outerMonthBox[i]= value - (7 - outerMonthBox[i-1] + inMonthDate[i]);
                     }
                 }
                 else
                 {
-                    int value;
                     for (int i = 0; i < 12; i++)
                     {
-
-                        for (value = 7; value - inMonthDate[i] + baseValueDate[DateTimePicker.Value.Year - 1][12]
-                            >= 0; value += 7)//이전년도의 outerMonthDate[12]
+                        if (i == 0)
+                        {
+                            for (value = 7; 7 - baseValueDate[DateTimePicker.Value.Year-1][12] + inMonthDate[i] > value; value += 7)//이전년도의 outerMonthDate[12]
+                            { }
+                            outerMonthBox[i] = value - (7 - baseValueDate[DateTimePicker.Value.Year - 1][12] + inMonthDate[i]);
+                            continue;
+                        }
+                        for (value = 7; 7 - outerMonthBox[i - 1] + inMonthDate[i] > value; value += 7)//이전년도의 outerMonthDate[12]
                         { }
-                        outerMonthDate[i] = value - inMonthDate[i] + baseValueDate[DateTimePicker.Value.Year - 1][12];
+                        outerMonthBox[i] = value - (7 - outerMonthBox[i - 1] + inMonthDate[i]);
                     }
                 }
-                SystemLabel.Text = "성공";
+                baseValueDate.Add(DateTimePicker.Value.Year, outerMonthBox);
+                MessageBox.Show("Dictionary업데이트에 실패하였습니다.", "알림", MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
             }
             catch
             {
