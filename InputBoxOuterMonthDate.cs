@@ -26,10 +26,10 @@ namespace MemoApp
             catch
             {
                 if (MessageBox.Show("제대로 숫자를 입력해 주세요. \r\n 다시 시도하시겠습니까?",
-                    "알림", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
+                    "알림", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     return;
             }
-
+            
             Close();
         }
     }

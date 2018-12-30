@@ -47,6 +47,7 @@
             this.MemoSettingFormBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ofdFile = new System.Windows.Forms.OpenFileDialog();
+            this.InputTextBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -54,9 +55,9 @@
             // BtnSave
             // 
             this.BtnSave.Enabled = false;
-            this.BtnSave.Location = new System.Drawing.Point(328, 51);
+            this.BtnSave.Location = new System.Drawing.Point(328, 50);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(86, 25);
+            this.BtnSave.Size = new System.Drawing.Size(94, 25);
             this.BtnSave.TabIndex = 0;
             this.BtnSave.Text = "저장";
             this.BtnSave.UseVisualStyleBackColor = true;
@@ -82,28 +83,28 @@
             // 
             // DateTimePicker
             // 
-            this.DateTimePicker.Location = new System.Drawing.Point(12, 53);
+            this.DateTimePicker.Location = new System.Drawing.Point(4, 53);
             this.DateTimePicker.Name = "DateTimePicker";
-            this.DateTimePicker.Size = new System.Drawing.Size(310, 21);
+            this.DateTimePicker.Size = new System.Drawing.Size(160, 21);
             this.DateTimePicker.TabIndex = 4;
-            this.DateTimePicker.ValueChanged += new System.EventHandler(this.DTP_ValueChanged);
+            this.DateTimePicker.CloseUp += new System.EventHandler(this.DTP_ValueChanged);
             this.DateTimePicker.DropDown += new System.EventHandler(this.DateTimePicker_DropDown);
             // 
             // txtMemo
             // 
-            this.txtMemo.Location = new System.Drawing.Point(14, 80);
+            this.txtMemo.Location = new System.Drawing.Point(4, 80);
             this.txtMemo.Multiline = true;
             this.txtMemo.Name = "txtMemo";
-            this.txtMemo.Size = new System.Drawing.Size(408, 271);
+            this.txtMemo.Size = new System.Drawing.Size(418, 271);
             this.txtMemo.TabIndex = 5;
             this.txtMemo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtMemo_KeyDown);
             this.txtMemo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TxtMemo_MouseClick);
             // 
             // SaveFolderPath
             // 
-            this.SaveFolderPath.Location = new System.Drawing.Point(12, 23);
+            this.SaveFolderPath.Location = new System.Drawing.Point(4, 23);
             this.SaveFolderPath.Name = "SaveFolderPath";
-            this.SaveFolderPath.Size = new System.Drawing.Size(310, 21);
+            this.SaveFolderPath.Size = new System.Drawing.Size(272, 21);
             this.SaveFolderPath.TabIndex = 7;
             this.SaveFolderPath.Text = "저장하고 로드할 폴더를 지정해 주세요.";
             this.SaveFolderPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SaveFolderPath_MouseClick);
@@ -114,11 +115,12 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(328, 22);
+            this.button1.Font = new System.Drawing.Font("돋움", 8F);
+            this.button1.Location = new System.Drawing.Point(282, 22);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 25);
+            this.button1.Size = new System.Drawing.Size(140, 25);
             this.button1.TabIndex = 8;
-            this.button1.Text = "지정하기";
+            this.button1.Text = "저장/로드 폴더 지정하기";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SaveFolderPath_MouseClick);
             // 
@@ -154,7 +156,7 @@
             this.groupBox1.Size = new System.Drawing.Size(143, 118);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "제목 형식";
+            this.groupBox1.Text = "파일 이름 형식";
             // 
             // RadioButton4
             // 
@@ -164,7 +166,6 @@
             this.RadioButton4.Name = "RadioButton4";
             this.RadioButton4.Size = new System.Drawing.Size(47, 16);
             this.RadioButton4.TabIndex = 3;
-            this.RadioButton4.TabStop = true;
             this.RadioButton4.Text = "미정";
             this.RadioButton4.UseVisualStyleBackColor = true;
             // 
@@ -176,7 +177,6 @@
             this.RadioButton3.Name = "RadioButton3";
             this.RadioButton3.Size = new System.Drawing.Size(47, 16);
             this.RadioButton3.TabIndex = 2;
-            this.RadioButton3.TabStop = true;
             this.RadioButton3.Text = "미정";
             this.RadioButton3.UseVisualStyleBackColor = true;
             // 
@@ -188,7 +188,6 @@
             this.RadioButton2.Name = "RadioButton2";
             this.RadioButton2.Size = new System.Drawing.Size(131, 15);
             this.RadioButton2.TabIndex = 1;
-            this.RadioButton2.TabStop = true;
             this.RadioButton2.Text = "n년 n월 n일~ n월n일";
             this.RadioButton2.UseVisualStyleBackColor = true;
             this.RadioButton2.CheckedChanged += new System.EventHandler(this.RadioButtons_Changed);
@@ -196,6 +195,7 @@
             // RadioButton1
             // 
             this.RadioButton1.AutoSize = true;
+            this.RadioButton1.Checked = true;
             this.RadioButton1.Font = new System.Drawing.Font("굴림", 7F);
             this.RadioButton1.Location = new System.Drawing.Point(7, 21);
             this.RadioButton1.Name = "RadioButton1";
@@ -226,11 +226,23 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "옵션";
             // 
+            // InputTextBox
+            // 
+            this.InputTextBox.Cursor = System.Windows.Forms.Cursors.Help;
+            this.InputTextBox.Font = new System.Drawing.Font("굴림", 9F);
+            this.InputTextBox.Location = new System.Drawing.Point(170, 53);
+            this.InputTextBox.Name = "InputTextBox";
+            this.InputTextBox.Size = new System.Drawing.Size(152, 21);
+            this.InputTextBox.TabIndex = 10;
+            this.InputTextBox.Text = "InputOuterMonth변수 입력";
+            this.InputTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.InputTextBox_MouseDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 384);
+            this.Controls.Add(this.InputTextBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.SaveFolderPath);
@@ -271,6 +283,7 @@
         private System.Windows.Forms.RadioButton RadioButton2;
         private System.Windows.Forms.RadioButton RadioButton1;
         private System.Windows.Forms.OpenFileDialog ofdFile;
+        public System.Windows.Forms.TextBox InputTextBox;
     }
 }
 

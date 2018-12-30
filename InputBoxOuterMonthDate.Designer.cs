@@ -33,6 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +51,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(254, 155);
+            this.label1.Location = new System.Drawing.Point(261, 164);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(129, 24);
             this.label1.TabIndex = 1;
@@ -58,7 +60,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(298, 120);
+            this.textBox1.Location = new System.Drawing.Point(310, 125);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(32, 21);
             this.textBox1.TabIndex = 2;
@@ -73,12 +75,39 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.WindowText;
+            this.label2.Font = new System.Drawing.Font("굴림", 9F);
+            this.label2.ForeColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(27, 26);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label2.Size = new System.Drawing.Size(57, 12);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "작년 12월";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("배달의민족 도현", 10F);
+            this.label3.Location = new System.Drawing.Point(247, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(167, 68);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "파일 이름(n월 n째주~\r\nn월 n째주)에 사용되는\r\nInputOuterMonth변수를\r\n세팅하기위한 팝업입니다";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // InputBoxOuterMonthDate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 255);
+            this.ClientSize = new System.Drawing.Size(412, 255);
             this.ControlBox = false;
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
@@ -86,7 +115,7 @@
             this.Name = "InputBoxOuterMonthDate";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "InputBoxOuterMonthDate";
+            this.Text = "InputOuterMonth 팝업";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -100,5 +129,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
