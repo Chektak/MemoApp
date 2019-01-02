@@ -92,9 +92,10 @@ namespace MemoApp
                         - DayOfWeekToInt() + i) + " ";
                     if ((DateTimePicker.Value.Day - DayOfWeekToInt() + i) <= 0)//12월1일 등이어서 -가 되는 특수한 경우
                     {
+                        SystemLabel.Text = DateTimePicker.Value.AddMonths(-2).Month.ToString();
                         Date = DateTimePicker.Value.AddMonths(-1).Month + "."
-                            + (inMonthDate[DateTimePicker.Value.AddMonths(-2).Month]
-                            + i - DayOfWeekToInt() + 1) + " ";
+                            + (inMonthDate[(DateTimePicker.Value.AddMonths(-2).Month==12)?0:DateTimePicker.Value.AddMonths(-2).Month]
+                            + i ) + " ";
                     }
                     Date += IntToDayOfWeek(i);//월화수목금토일같은 문자로 변환한다.
                     Date += "\r\n\r\n";//줄바꿈 두개
@@ -108,7 +109,7 @@ namespace MemoApp
                     if ((DateTimePicker.Value.Day + i) > inMonthDate[DateTimePicker.Value.Month-1])//11월30일 등이어서 해당달의 총일을 넘는 특수한 경우
                     {
                         Date = DateTimePicker.Value.AddMonths(1).Month.ToString() + "." +
-                        (DateTimePicker.Value.Day + i - inMonthDate[DateTimePicker.Value.Month - 1]) + " ";
+                        (DateTimePicker.Value.Day + i - inMonthDate[(DateTimePicker.Value.Month==12)? 11 : DateTimePicker.Value.Month]) + " ";
                     }
                     Date += IntToDayOfWeek(i + (DayOfWeekToInt()));
                     Date += "\r\n\r\n";//줄바꿈 두개
@@ -309,13 +310,14 @@ namespace MemoApp
 
         void UpdateDictionary()
         {
+            inputBoxForm.ShowDialog();//이전년도의 outerMonth를 InputOuterMonth 변수로 받는다.
             try
             {
+
                 int value;
                 int[] outerMonthBox = new int[12];
                 if (baseValueDate.ContainsKey(DateTimePicker.Value.Year - 1) != true)
                 {
-                    inputBoxForm.ShowDialog();//이전년도의 outerMonth를 InputOuterMonth 변수로 받는다.
                     for (int i = 0; i < 12; i++)
                     {
                         if (i == 0)
@@ -370,7 +372,6 @@ namespace MemoApp
         private void InputTextBox_MouseDown(object sender, MouseEventArgs e)
         {
             UpdateDictionary();
-            
         }
     }
 }
