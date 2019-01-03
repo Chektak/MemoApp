@@ -68,18 +68,18 @@
             this.Label.AutoSize = true;
             this.Label.Location = new System.Drawing.Point(417, 363);
             this.Label.Name = "Label";
-            this.Label.Size = new System.Drawing.Size(165, 12);
+            this.Label.Size = new System.Drawing.Size(143, 12);
             this.Label.TabIndex = 2;
-            this.Label.Text = "Made by 2018.11.30 - 강승현";
+            this.Label.Text = "Made by 2019.1 - 강승현";
             // 
             // SystemLabel
             // 
             this.SystemLabel.AutoSize = true;
             this.SystemLabel.Location = new System.Drawing.Point(10, 363);
             this.SystemLabel.Name = "SystemLabel";
-            this.SystemLabel.Size = new System.Drawing.Size(399, 12);
+            this.SystemLabel.Size = new System.Drawing.Size(371, 12);
             this.SystemLabel.TabIndex = 3;
-            this.SystemLabel.Text = "도움말 - 내용이 없습니다. 경로설정 후 날짜를 설정해 내용을 입력주세요";
+            this.SystemLabel.Text = "도움말 - 이 앱은 테스트 버전입니다. 많은 버그가 있을 수 있습니다.";
             // 
             // DateTimePicker
             // 
@@ -95,7 +95,8 @@
             this.txtMemo.Location = new System.Drawing.Point(4, 80);
             this.txtMemo.Multiline = true;
             this.txtMemo.Name = "txtMemo";
-            this.txtMemo.Size = new System.Drawing.Size(418, 271);
+            this.txtMemo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtMemo.Size = new System.Drawing.Size(433, 271);
             this.txtMemo.TabIndex = 5;
             this.txtMemo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtMemo_KeyDown);
             this.txtMemo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TxtMemo_MouseClick);
@@ -183,6 +184,7 @@
             // RadioButton2
             // 
             this.RadioButton2.AutoSize = true;
+            this.RadioButton2.Enabled = false;
             this.RadioButton2.Font = new System.Drawing.Font("굴림", 8F);
             this.RadioButton2.Location = new System.Drawing.Point(7, 44);
             this.RadioButton2.Name = "RadioButton2";
@@ -241,7 +243,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(594, 384);
+            this.ClientSize = new System.Drawing.Size(589, 384);
             this.Controls.Add(this.InputTextBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);

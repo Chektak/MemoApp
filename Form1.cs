@@ -58,16 +58,15 @@ namespace MemoApp
                 MessageBox.Show("저장에 실패하였습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            MessageBox.Show("저장에 성공하였습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("저장에 성공하였습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DTP_ValueChanged(object sender, EventArgs e)
         {//날짜가 변경되면 일어나는 함수
             txtMemo.Clear();
-            UpdateinMonthDate();
             GetFileName();
-            SystemLabel.Text = fileName;
-            //파일 읽기
+            SystemLabel.Text = "파일 이름 : "+fileName;
+            FileRead();
             txtNoteChange = false;
         }
         private void DateTimePicker_DropDown(object sender, EventArgs e)
@@ -89,13 +88,16 @@ namespace MemoApp
                 for (int i = 0; i < DayOfWeekToInt(); i++)
                 {
                     string Date = DateTimePicker.Value.Month.ToString() + "." + (DateTimePicker.Value.Day
-                        - DayOfWeekToInt() + i) + " ";
+                        - DayOfWeekToInt()+i) + " ";
                     if ((DateTimePicker.Value.Day - DayOfWeekToInt() + i) <= 0)//12월1일 등이어서 -가 되는 특수한 경우
                     {
-                        SystemLabel.Text = DateTimePicker.Value.AddMonths(-2).Month.ToString();
-                        Date = DateTimePicker.Value.AddMonths(-1).Month + "."
-                            + (inMonthDate[(DateTimePicker.Value.AddMonths(-2).Month==12)?0:DateTimePicker.Value.AddMonths(-2).Month]
-                            + i ) + " ";
+                        int formerMonthDays;
+                        if (DateTimePicker.Value.Month - 2 <= 0)
+                            formerMonthDays = 31;
+                        else
+                            formerMonthDays = inMonthDate[DateTimePicker.Value.AddMonths(-2).Month];
+                        Date = DateTimePicker.Value.AddDays(-DayOfWeekToInt() + i).Month + "."
+                        +DateTimePicker.Value.AddDays(-DayOfWeekToInt() + i ).Day + " ";
                     }
                     Date += IntToDayOfWeek(i);//월화수목금토일같은 문자로 변환한다.
                     Date += "\r\n\r\n";//줄바꿈 두개
@@ -109,7 +111,7 @@ namespace MemoApp
                     if ((DateTimePicker.Value.Day + i) > inMonthDate[DateTimePicker.Value.Month-1])//11월30일 등이어서 해당달의 총일을 넘는 특수한 경우
                     {
                         Date = DateTimePicker.Value.AddMonths(1).Month.ToString() + "." +
-                        (DateTimePicker.Value.Day + i - inMonthDate[(DateTimePicker.Value.Month==12)? 11 : DateTimePicker.Value.Month]) + " ";
+                        (DateTimePicker.Value.Day + i - inMonthDate[(DateTimePicker.Value.AddMonths(-1).Month==12)? 0 : DateTimePicker.Value.AddMonths(-1).Month]) + " ";
                     }
                     Date += IntToDayOfWeek(i + (DayOfWeekToInt()));
                     Date += "\r\n\r\n";//줄바꿈 두개
@@ -185,17 +187,20 @@ namespace MemoApp
             return va;
         }
 
-        private bool FileView(string filepath)
+        private void FileRead()
         {
             try
             {
-                
+                string[] textValue = System.IO.File.ReadAllLines(filePath + @"\" + fileName + ".txt", Encoding.Default);
+                foreach (string str in textValue)
+                {
+                    txtMemo.Text += str+"\r\n";
+                }
             }
             catch
             {
-                return false;
+                return;
             }
-            return true;
         }
 
         private void SaveFolderPath_MouseClick(object sender, MouseEventArgs e)
@@ -205,44 +210,26 @@ namespace MemoApp
                 filePath = Fddfile.SelectedPath;
                 SaveFolderPath.Text = filePath;
                 BtnSave.Enabled = true;
+                if (baseValueDate.ContainsKey(DateTimePicker.Value.Year) == true) {
+                    GetFileName();
+                    FileRead();
+                }
+
             }
         }
 
         private void FileSave()
         {
-            DirectoryInfo di = new DirectoryInfo(Fddfile.SelectedPath + @"\" + fileName);
-            FileInfo[] fi = di.GetFiles();
-            FileInfo findFile;
-            bool isExists = false;
-            foreach (FileInfo f in fi)
-            {
-                if (f.Name == fileName)
-                {
-                    isExists = true;
-                    findFile = f;
-                    break;
-                }
-            }
-
-            if (isExists == true)
-            {
-
-            }
-            else if (this.Text == "MemoApp")
-            {
-                var dlr = this.sfdFile.ShowDialog();
-                if (dlr != DialogResult.Cancel)
-                {
-                    StreamWriter sw = new StreamWriter(fileName, false, System.Text.Encoding.Default);
-                    sw.Write(txtMemo.Text);
-                    sw.Flush();
-                    sw.Close();
-                    FileInfo f = new FileInfo(fileName);
-                    this.Text = f.Name;
-                }
-            }
-            
+            StreamWriter sw = new StreamWriter(filePath + @"\" + fileName+".txt", false, System.Text.Encoding.Default);
+            sw.Write(txtMemo.Text);
+            sw.Flush();
+            sw.Close();
+            FileInfo f = new FileInfo(fileName);
+            this.Text = f.Name;
+            txtNoteChange = false;
+            SystemLabel.Text = filePath + @"\" + fileName+".txt" + "으로 저장되었습니다.";
         }
+
         private void MemoSettingFormBtn_Click(object sender, EventArgs e)
         {
             memoSettingForm.Visible = true;
@@ -272,9 +259,8 @@ namespace MemoApp
                         outerMonthDate = baseValueDate[DateTimePicker.Value.Year];
                         string nextvaluestr;
                         int value;
-                        for (value = 1; value * 7 < 7 - outerMonthDate[DateTimePicker.Value.Month - 1] +
-                            DateTimePicker.Value.Day; value++)
-                        { }
+                        for (value = 0; value * 7 + 1 < 7 - ((DateTimePicker.Value.Month == 1) ? InputOuterMonth : outerMonthDate[DateTimePicker.Value.Month - 2])
+                            + DateTimePicker.Value.Day; value++) { }
                         int nextvalueint = value + 1;
                         int month = DateTimePicker.Value.Month;
 
@@ -316,46 +302,24 @@ namespace MemoApp
 
                 int value;
                 int[] outerMonthBox = new int[12];
-                if (baseValueDate.ContainsKey(DateTimePicker.Value.Year - 1) != true)
+                for (int i = 0; i < 12; i++)
                 {
-                    for (int i = 0; i < 12; i++)
+                    if (i == 0)
                     {
-                        if (i == 0)
-                        {
-                            for (value = 7; 7 - InputOuterMonth + inMonthDate[i] > value; value += 7)//이전년도의 outerMonthDate[12]
-                            { }
-                            outerMonthBox[i] = value - (7 - InputOuterMonth + inMonthDate[i]);
-                            continue;
-                        }
-                        for (value = 7; 7 - outerMonthBox[i - 1] + inMonthDate[i] > value; value += 7)//이전년도의 outerMonthDate[12]
+                        for (value = 7; 7 - InputOuterMonth + inMonthDate[i] > value; value += 7)//이전년도의 outerMonthDate[12]
                         { }
-                        outerMonthBox[i] = value - (7 - outerMonthBox[i - 1] + inMonthDate[i]);
+                        outerMonthBox[i] = value - (7 - InputOuterMonth + inMonthDate[i]);
+                        continue;
                     }
+                    for (value = 7; 7 - outerMonthBox[i - 1] + inMonthDate[i] > value; value += 7)//이전년도의 outerMonthDate[12]
+                    { }
+                    outerMonthBox[i] = value - (7 - outerMonthBox[i - 1] + inMonthDate[i]);
                 }
-                else
-                {
-                    for (int i = 0; i < 12; i++)
-                    {
-                        if (i == 0)
-                        {
-                            for (value = 7; 7 - baseValueDate[DateTimePicker.Value.Year - 1][12] + inMonthDate[i] > value; value += 7)//이전년도의 outerMonthDate[12]
-                            { }
-                            outerMonthBox[i] = value - (7 - baseValueDate[DateTimePicker.Value.Year - 1][12] + inMonthDate[i]);
-                            continue;
-                        }
-                        for (value = 7; 7 - outerMonthBox[i - 1] + inMonthDate[i] > value; value += 7)//이전년도의 outerMonthDate[12]
-                        { }
-                        outerMonthBox[i] = value - (7 - outerMonthBox[i - 1] + inMonthDate[i]);
-                    }
-                }
-                if (baseValueDate.ContainsKey(DateTimePicker.Value.Year) == false)
-                    baseValueDate.Add(DateTimePicker.Value.Year, outerMonthBox);
-                else
-                    baseValueDate[DateTimePicker.Value.Year] = outerMonthBox;
+                baseValueDate[DateTimePicker.Value.Year] = outerMonthBox;
             }
             catch
             {
-                MessageBox.Show("Dictionary업데이트에 실패하였습니다.", "알림", MessageBoxButtons.OK, 
+                MessageBox.Show("Dictionary업데이트에 실패하였습니다.", "알림", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
             }

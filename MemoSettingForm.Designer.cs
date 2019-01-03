@@ -82,6 +82,7 @@
             // DetailForm
             // 
             this.DetailForm.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.DetailForm.Enabled = false;
             this.DetailForm.Location = new System.Drawing.Point(236, 12);
             this.DetailForm.Name = "DetailForm";
             this.DetailForm.Size = new System.Drawing.Size(201, 102);
@@ -103,6 +104,7 @@
             // Detail_PlanForm
             // 
             this.Detail_PlanForm.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Detail_PlanForm.Enabled = false;
             this.Detail_PlanForm.Location = new System.Drawing.Point(238, 132);
             this.Detail_PlanForm.Name = "Detail_PlanForm";
             this.Detail_PlanForm.Size = new System.Drawing.Size(201, 102);
@@ -124,6 +126,7 @@
             // Basic_PlanForm
             // 
             this.Basic_PlanForm.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Basic_PlanForm.Enabled = false;
             this.Basic_PlanForm.Location = new System.Drawing.Point(14, 132);
             this.Basic_PlanForm.Name = "Basic_PlanForm";
             this.Basic_PlanForm.Size = new System.Drawing.Size(201, 102);
